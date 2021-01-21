@@ -143,10 +143,10 @@ const ArticleScreen = ({route}: ArticleProps) => {
       <Image source={{uri: article?.imageUrl}} style={{width: "60%", height: 300}}/>
       <View style={styles.listItemTextView}>
         <Text style={{fontSize: 18, fontWeight: "bold", marginBottom:12}}>{article?.title}</Text>
-        <Text style={{fontSize: 18, color: article?.onSale? "green" : "black", marginBottom:12 }}>{"$" + article?.price}</Text>
+        <Text style={{fontSize: 18, color: article?.onSale? "green" : "black", marginBottom:12 }}>$ {article?.price}</Text>
         <Text style={{fontWeight: "bold"}}>Description:</Text>
         <Text style={{marginBottom:12}}>{article?.description}</Text>
-        <Text style={{fontSize: 12, color: "grey" , marginBottom:12}} >{"Category: " + article?.category}</Text>
+        <Text style={{fontSize: 12, color: "grey" , marginBottom:12}} >Category: {article?.category}</Text>
       </View>
       <Button title="Add to cart" onPress={() => {console.log("Added to cart")}} />
     </SafeAreaView>
