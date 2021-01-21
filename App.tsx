@@ -7,7 +7,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 type RootStackParamList = {
   Article: { itemId: number, itemTitle: string };
-  List: undefined
+  List: {}
 };
 
 const RootStack = createStackNavigator<RootStackParamList>();
@@ -17,11 +17,22 @@ type ArticleScreenNavigationProp = StackNavigationProp<
   'Article'
 >;
 
-type ArticleScreenRouteProp = RouteProp<RootStackParamList, 'Article'>;
+type ListScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'List'
+>;
 
-type Props = {
+type ArticleScreenRouteProp = RouteProp<RootStackParamList, 'Article'>;
+type ListScreenRouteProp = RouteProp<RootStackParamList, "List">;
+
+type ArticleProps = {
   navigation: ArticleScreenNavigationProp;
-  route: ArticleScreenRouteProp
+  route: ArticleScreenRouteProp;
+};
+
+type ListProps = {
+  navigation: ListScreenNavigationProp;
+  route: ListScreenRouteProp;
 };
 
 interface ListItem {
@@ -49,7 +60,7 @@ const setDefaultArticle: () => ArticleScreenItem = () => {
     return defaultArticle
 }
 
-const ListScreen = ({navigation}: Props) => {
+const ListScreen = ({navigation}: ArticleProps) => {
 
   const fetchList: () => ListItem[] = () => {
     let url: string = "https://fakestoreapi.com/products"
@@ -101,7 +112,7 @@ const ListScreen = ({navigation}: Props) => {
   )
 }
 
-const ArticleScreen = ({route}: Props) => {
+const ArticleScreen = ({route}: ListProps) => {
 
   const fetchArticle: () => ArticleScreenItem = () => {
 
