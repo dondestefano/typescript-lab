@@ -112,7 +112,7 @@ const ListScreen = ({navigation}: ArticleProps) => {
   )
 }
 
-const ArticleScreen = ({route}: ListProps) => {
+const ArticleScreen = ({route}: ArticleProps) => {
 
   const fetchArticle: () => ArticleScreenItem = () => {
 
