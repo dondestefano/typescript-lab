@@ -44,20 +44,13 @@ interface ListItem {
 }
 
 interface ArticleScreenItem {
-  id?: number | null,
-  title?: string | null,
-  description?: string | null,
-  category?: string | null,
+  id: number,
+  title: string,
+  description: string,
+  category: string,
   imageUrl: string,
-  price?: number | null,
-  onSale?: boolean | null
-}
-
-const setDefaultArticle: () => ArticleScreenItem = () => {
-    let defaultArticle: ArticleScreenItem = { 
-      imageUrl: "notavailable"};
-
-    return defaultArticle
+  price: number,
+  onSale: boolean
 }
 
 const ListScreen = ({navigation}: ArticleProps) => {
@@ -114,7 +107,7 @@ const ListScreen = ({navigation}: ArticleProps) => {
 
 const ArticleScreen = ({route}: ArticleProps) => {
 
-  const fetchArticle: () => ArticleScreenItem = () => {
+  const fetchArticle: () => ArticleScreenItem | null = () => {
 
     let url: string = `https://fakestoreapi.com/products/${route.params.itemId}`
     fetch(url)
@@ -143,23 +136,17 @@ const ArticleScreen = ({route}: ArticleProps) => {
     return article
   }
 
-  const [article, setArticle] = useState<ArticleScreenItem>(() => setDefaultArticle());
-
-  useEffect(() => {
-    if(article.title === undefined) {
-      fetchArticle()
-    }
-  }, [article]);
+  const [article, setArticle] = useState<ArticleScreenItem | null>(() => fetchArticle());
 
   return(
     <SafeAreaView style={{...styles.container, padding:12}}>
-      <Image source={{uri: article.imageUrl}} style={{width: "60%", height: 300}}/>
+      <Image source={{uri: article?.imageUrl}} style={{width: "60%", height: 300}}/>
       <View style={styles.listItemTextView}>
-        <Text style={{fontSize: 18, fontWeight: "bold", marginBottom:12}}>{article.title}</Text>
-        <Text style={{fontSize: 18, color: article.onSale? "green" : "black", marginBottom:12 }}>{"$" + article.price}</Text>
+        <Text style={{fontSize: 18, fontWeight: "bold", marginBottom:12}}>{article?.title}</Text>
+        <Text style={{fontSize: 18, color: article?.onSale? "green" : "black", marginBottom:12 }}>{"$" + article?.price}</Text>
         <Text style={{fontWeight: "bold"}}>Description:</Text>
-        <Text style={{marginBottom:12}}>{article.description}</Text>
-        <Text style={{fontSize: 12, color: "grey" , marginBottom:12}} >{"Category: " + article.category}</Text>
+        <Text style={{marginBottom:12}}>{article?.description}</Text>
+        <Text style={{fontSize: 12, color: "grey" , marginBottom:12}} >{"Category: " + article?.category}</Text>
       </View>
       <Button title="Add to cart" onPress={() => {console.log("Added to cart")}} />
     </SafeAreaView>
