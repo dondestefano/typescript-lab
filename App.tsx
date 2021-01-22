@@ -53,7 +53,7 @@ interface ArticleScreenItem {
   onSale: boolean
 }
 
-const ListScreen = ({navigation}: ArticleProps) => {
+const ListScreen = ({navigation}: ListProps) => {
 
   const fetchList: () => ListItem[] = () => {
     let url: string = "https://fakestoreapi.com/products"
